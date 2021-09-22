@@ -1,31 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Nav from 'react-bootstrap/Nav';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import TodoBoard from './Components/TodoBoard.js'
 import './index.css';
 
 
 function TodoPage(){
+    // imported from https://react-bootstrap.github.io/components/navs/
     return(
         <div>
-            <Nav
-                activeKey="/home"
-                onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
-                >
+            <Nav variant="tabs" defaultActiveKey="/home">
                 <Nav.Item>
-                    <Nav.Link href="/home">Active</Nav.Link>
+                    <Nav.Link href="/home">Todo</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link eventKey="link-1">Link</Nav.Link>
+                    <Nav.Link eventKey="link-1">Points</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link eventKey="link-2">Link</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                    <Nav.Link eventKey="disabled" disabled>
-                    Disabled
-                    </Nav.Link>
+                    <Nav.Link eventKey="link-2">Collection</Nav.Link>
                 </Nav.Item>
             </Nav>
+            <h1>Poke-Habits</h1>
+            <TodoBoard/>
         </div>
     )
 };
