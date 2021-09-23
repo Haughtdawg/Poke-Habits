@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Nav from 'react-bootstrap/Nav';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import TodoBoard from './Components/TodoBoard.js'
+import { TodoBoard } from './Components/TodoBoard.js'
 import './index.css';
 
 
