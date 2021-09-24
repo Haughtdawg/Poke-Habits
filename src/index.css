@@ -1,0 +1,10 @@
+.AddTaskContainer div{
+    flex-direction: row;
+    justify-content: space-around;
+    width: '50%';
+}
+
+.AddTaskElement{
+    flex: fill;
+    justify-content: center;
+}
