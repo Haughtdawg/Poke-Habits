@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { TodoBoard } from './Components/TodoBoard.js'
 import './index.css';
-
+import { TaskTable } from './Components/TodoBoardComponents/TaskTable.js';
 
 function TodoPage(){
     // imported from https://react-bootstrap.github.io/components/navs/
@@ -23,6 +23,8 @@ function TodoPage(){
             </Nav>
             <h1>Poke-Habits</h1>
             <TodoBoard/>
+            {/*Test below here  */}
+            <TaskTable />
         </div>
     )
 };
