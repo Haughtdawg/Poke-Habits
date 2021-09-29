@@ -29,7 +29,7 @@ export function AddTaskContainer(){
             
             {/* Break out into its own class */}
             <span className="d-flex flex-fill justify-content-center">
-                <Button variant="danger">
+                <Button variant="danger" onClick= {()=>setTaskName('')} >
                     <FontAwesomeIcon icon={ faTrash } />
                 </Button>
             </span>

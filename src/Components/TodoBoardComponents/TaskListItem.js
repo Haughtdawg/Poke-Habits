@@ -1,4 +1,4 @@
-//import react, { usestate } from 'react';
+import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -6,7 +6,9 @@ import Button from 'react-bootstrap/Button';
 
 
 
-export function TaskListItem( {pointAmt, title} ) {
+export function TaskListItem( {pointAmt, title, deletionConfirm} ) {
+    const [checkBoxState, setBoxState] = useState(false);
+   
     
     return(
         <div className= "d-flex">
@@ -16,7 +18,13 @@ export function TaskListItem( {pointAmt, title} ) {
 
             <span className = "d-flex flex-fill justify-content-center">{/*checkbox*/}
             <Form>
-                <Form.Check type= {'checkbox'}/>
+                <Form.Check type= {'checkbox'}
+                value={checkBoxState}  onChange={
+                    () => {
+                        setBoxState(!checkBoxState)
+                        alert(checkBoxState)
+                    }
+                }/>
             </Form>
             </span>
 
@@ -25,7 +33,8 @@ export function TaskListItem( {pointAmt, title} ) {
             </span>
 
             <span className = "d-flex flex-fill justify-content-center">{/*Deletion*/}
-            <Button onClick = {() => alert('Are you sure you want to delete this task? :/') }>
+            <Button onClick = {deletionConfirm}>
+                {/*pass {function, ID } function will take in ID  */}
             <FontAwesomeIcon icon= {faTrash} />
             </Button>
             </span>
