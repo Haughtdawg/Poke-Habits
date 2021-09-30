@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TaskListItem } from './TaskListItem.js';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -7,9 +7,27 @@ import Button from 'react-bootstrap/Button';
   
 
 
-export function TaskTable( { infoomation, func}){
+export function TaskTable( { infoomation, func,}){
+    const [taskIndex, setTaskIndex] = useState(0);
+    
+    const [selectedKey, setSelectedKey] = useState('');
     const [show, setShow] = useState(false);
-    const openIt = () => setShow(true);
+    /*
+    useEffect (() => {
+        const theIndex = (e) => e.iD === selectedKey;
+        setTaskIndex(infoomation.findIndex(theIndex));
+        setShow(true);
+    } , [selectedKey]);
+*/
+    const openIt = () => {
+         console.log('here ' + selectedKey)
+        const theIndex = (e) => e.iD === selectedKey;
+        setTaskIndex(infoomation.findIndex(theIndex));
+        setShow(true);
+
+        //taskIndex= setSelectedKey(key);
+        
+    }
     const closeIt = () => setShow(false);
 
     const deleteTask = (iD) => {
@@ -25,18 +43,25 @@ export function TaskTable( { infoomation, func}){
     const rowInfo = infoomation.map((e) => <TaskListItem 
                                             pointAmt= {e.pointAmt} 
                                             title= {e.title} 
+                                            ble= {e.iD.toString()} 
                                             key= {e.iD.toString()} 
-                                            deletionConfirm = {openIt}/>);
+                                            deletionConfirm = {openIt}
+                                            setSelection = {setSelectedKey}
+                                            />);
 
     return(
         
             <div>
-                  
+                  {console.log(taskIndex)}
                 <Modal show={show} onHide= {closeIt}>
-                    <Modal.header closeButton>
-                        <Modal.title>You Really Deleting this Bruv</Modal.title>
-                    </Modal.header>
-                    <Modal.Body> {infoomation[0].title}</Modal.Body>
+                    <Modal.Header closeButton>
+                        <Modal.Title>You Really Deleting this Bruv</Modal.Title>
+                    </Modal.Header> 
+                    <Modal.Body> <p>
+                        {infoomation[taskIndex].title};
+                        {selectedKey};
+                        </p>
+                        </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={closeIt} >
                         DO NOT REMOVE FOR THE LOVE OF RYAN

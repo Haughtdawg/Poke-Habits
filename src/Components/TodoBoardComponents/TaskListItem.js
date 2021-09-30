@@ -6,9 +6,14 @@ import Button from 'react-bootstrap/Button';
 
 
 
-export function TaskListItem( {pointAmt, title, deletionConfirm} ) {
+export function TaskListItem( {pointAmt, title, ble, deletionConfirm, setSelection} ) {
     const [checkBoxState, setBoxState] = useState(false);
    
+    const theIDFunction = (somethin) => {
+        const statePromise = new Promise(() => 
+        setSelection(ble))
+        statePromise.then(deletionConfirm);
+    }
     
     return(
         <div className= "d-flex">
@@ -33,7 +38,7 @@ export function TaskListItem( {pointAmt, title, deletionConfirm} ) {
             </span>
 
             <span className = "d-flex flex-fill justify-content-center">{/*Deletion*/}
-            <Button onClick = {deletionConfirm}>
+            <Button onClick = {theIDFunction}>
                 {/*pass {function, ID } function will take in ID  */}
             <FontAwesomeIcon icon= {faTrash} />
             </Button>
