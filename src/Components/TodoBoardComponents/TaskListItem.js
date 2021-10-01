@@ -6,13 +6,11 @@ import Button from 'react-bootstrap/Button';
 
 
 
-export function TaskListItem( {pointAmt, title, ble, deletionConfirm, setSelection} ) {
+export function TaskListItem( {pointAmt, title, taskId, deletionConfirm} ) {
     const [checkBoxState, setBoxState] = useState(false);
    
-    const theIDFunction = (somethin) => {
-        const statePromise = new Promise(() => 
-        setSelection(ble))
-        statePromise.then(deletionConfirm);
+    const theIDFunction = () => {
+        deletionConfirm(taskId);
     }
     
     return(

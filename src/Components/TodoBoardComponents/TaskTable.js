@@ -3,31 +3,16 @@ import { TaskListItem } from './TaskListItem.js';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
-
-  
-
-
-export function TaskTable( { infoomation, func,}){
+export function TaskTable( { infoomation }){
     const [taskIndex, setTaskIndex] = useState(0);
-    
-    const [selectedKey, setSelectedKey] = useState('');
     const [show, setShow] = useState(false);
-    /*
-    useEffect (() => {
-        const theIndex = (e) => e.iD === selectedKey;
-        setTaskIndex(infoomation.findIndex(theIndex));
-        setShow(true);
-    } , [selectedKey]);
-*/
-    const openIt = () => {
-         console.log('here ' + selectedKey)
-        const theIndex = (e) => e.iD === selectedKey;
-        setTaskIndex(infoomation.findIndex(theIndex));
-        setShow(true);
 
-        //taskIndex= setSelectedKey(key);
-        
+    const openIt = (selectedKey) => {
+        const testKey = (e) => e.iD === selectedKey;
+        setTaskIndex(infoomation.findIndex(testKey));
+        setShow(true);
     }
+
     const closeIt = () => setShow(false);
 
     const deleteTask = (iD) => {
@@ -43,23 +28,20 @@ export function TaskTable( { infoomation, func,}){
     const rowInfo = infoomation.map((e) => <TaskListItem 
                                             pointAmt= {e.pointAmt} 
                                             title= {e.title} 
-                                            ble= {e.iD.toString()} 
+                                            taskId= {e.iD} 
                                             key= {e.iD.toString()} 
                                             deletionConfirm = {openIt}
-                                            setSelection = {setSelectedKey}
                                             />);
 
     return(
         
             <div>
-                  {console.log(taskIndex)}
                 <Modal show={show} onHide= {closeIt}>
                     <Modal.Header closeButton>
                         <Modal.Title>You Really Deleting this Bruv</Modal.Title>
                     </Modal.Header> 
                     <Modal.Body> <p>
-                        {infoomation[taskIndex].title};
-                        {selectedKey};
+                        {'Are you sure you want to delete task: ' + '"' + infoomation[taskIndex].title + '"'}
                         </p>
                         </Modal.Body>
                     <Modal.Footer>
