@@ -3,7 +3,7 @@ import { TaskListItem } from './TaskListItem.js';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
-export function TaskTable( { infoomation }){
+export function TaskTable( { infoomation, func }){
     const [taskIndex, setTaskIndex] = useState(0);
     const [show, setShow] = useState(false);
 
@@ -41,7 +41,7 @@ export function TaskTable( { infoomation }){
                         <Modal.Title>You Really Deleting this Bruv</Modal.Title>
                     </Modal.Header> 
                     <Modal.Body> <p>
-                        {'Are you sure you want to delete task: ' + '"' + infoomation[taskIndex].title + '"'}
+                        {'Are you sure you want to delete task: ' + '"' + infoomation[taskIndex].title + '"?'}
                         </p>
                         </Modal.Body>
                     <Modal.Footer>
@@ -49,7 +49,11 @@ export function TaskTable( { infoomation }){
                         DO NOT REMOVE FOR THE LOVE OF RYAN
                         </Button>
 
-                        <Button onClick={closeIt}>
+                        <Button onClick={() => {closeIt();
+                        const mutableByPass = infoomation;
+                        mutableByPass.splice(taskIndex, 1);
+                        func(mutableByPass);
+                          }} > 
                         TO THE SHADOW REALM
                         </Button>
                     </Modal.Footer>
