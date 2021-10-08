@@ -1,20 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../../index.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-export function AddTaskContainer({ newTaskName }){
-
-    const [taskName, setTaskName] = useState('');
+export function AddTaskContainer({ taskName, setTaskName, setShowModal }){
 
     return(
         <div className="AddTaskContainer d-flex ">
 
             {/* Break out into its own class */}
             <span className="d-flex flex-fill justify-content-center">
-                <Button onClick={()=>alert(taskName)}>
+                <Button onClick={()=> setShowModal(true)}>
                     {/* confirm task with MODAL
                     if confirmed, create object that takes in task name and grabs the next id and point value
                     add the object to  infoomation :p (cause we aren't data-ing yet )*/}
