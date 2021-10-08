@@ -2,10 +2,10 @@
 {
     "information":
     [
-        {"iD": 0, "pointAmt": 999, "title": "Did it work"},
-        {"iD": 1, "pointAmt": -50, "title": "who knows"},
-        {"iD": 2, "pointAmt": 0, "title": "I know"},
-        {"iD": 3, "pointAmt": 1000000 , "title": "YOUR TASK LIST IS COMPLETE!!"}
+        {"iD": 0, "pointAmt": 999, "title": "Did it work", "isCompleted" : false},
+        {"iD": 1, "pointAmt": -50, "title": "who knows", "isCompleted" : false},
+        {"iD": 2, "pointAmt": 0, "title": "I know", "isCompleted" : false},
+        {"iD": 3, "pointAmt": 1000000 , "title": "YOUR TASK LIST IS COMPLETE!!", "isCompleted" : false}
 
     ]
 }

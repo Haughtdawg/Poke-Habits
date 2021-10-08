@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Form from 'react-bootstrap/Form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -6,8 +6,7 @@ import Button from 'react-bootstrap/Button';
 
 
 
-export function TaskListItem( {pointAmt, title, taskId, deletionConfirm} ) {
-    const [checkBoxState, setBoxState] = useState(false);
+export function TaskListItem( {pointAmt, title, taskId, deletionConfirm, checkBoxState, func} ) {
    
     const theIDFunction = () => {
         deletionConfirm(taskId);
@@ -24,8 +23,11 @@ export function TaskListItem( {pointAmt, title, taskId, deletionConfirm} ) {
                 <Form.Check type= {'checkbox'}
                 value={checkBoxState}  onChange={
                     () => {
-                        setBoxState(!checkBoxState)
-                        alert(checkBoxState)
+                        func(taskId)
+                        {/*create submit button->
+                        Modal to confirm the tasks to mark as complete
+                        get pointAmt s  and addthem to pokePoints
+                        remove apppropiate TaskListItems */}
                     }
                 }/>
             </Form>

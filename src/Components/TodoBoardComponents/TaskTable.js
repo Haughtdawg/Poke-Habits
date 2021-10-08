@@ -3,10 +3,9 @@ import { TaskListItem } from './TaskListItem.js';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
-export function TaskTable( { infoomation, func }){
+export function TaskTable( { infoomation, setInfoomation, toggler }){
     const [taskIndex, setTaskIndex] = useState(0);
     const [removeModal, setRemoveModal] = useState(false);
-
 
     const openIt = (selectedKey) => {
         const testKey = (e) => e.iD === selectedKey;
@@ -16,12 +15,16 @@ export function TaskTable( { infoomation, func }){
 
     const closeIt = () => setRemoveModal(false);
 
+
     const tableInfo = infoomation.map((e) => <TaskListItem 
                                             pointAmt= {e.pointAmt} 
                                             title= {e.title} 
                                             taskId= {e.iD} 
                                             key= {e.iD.toString()} 
                                             deletionConfirm = {openIt}
+                                            checkBoxState = {e.isCompleted}
+
+                                            func = {toggler}
                                             />);
 
 
@@ -45,7 +48,7 @@ export function TaskTable( { infoomation, func }){
                         <Button onClick={() => {setRemoveModal(false);
                         const mutableByPass = infoomation;
                         mutableByPass.splice(taskIndex, 1);
-                        func(mutableByPass);
+                        setInfoomation(mutableByPass);
                           }} > 
                         TO THE SHADOW REALM
                         </Button>
