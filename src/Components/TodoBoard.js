@@ -28,14 +28,9 @@ export function TodoBoard(){
         const submissionArray = infoArray.filter(e => e.isCompleted === true);
         const pointsIterator = e => setJsonPoints(e.pointAmt + jsonPoints);
         submissionArray.forEach(pointsIterator);
-        /*Points update late(?) and we need to lift pooints from PointsAggregate to display correct points */
 
         const keepArray = infoArray.filter(o => o.isCompleted === false);
-        setInfoArray(keepArray);
-        console.log(submissionArray);
-        console.log(jsonPoints);
-        console.log( keepArray);
-        
+        setInfoArray(keepArray);        
     }
 
     const addTask = () => {
@@ -74,8 +69,8 @@ export function TodoBoard(){
 
             <h2>TODO</h2>
             <AddTaskContainer taskName = {newTaskName} setTaskName = {setNewTaskName} setShowModal = { setAddModal }/>
-            <TaskTable infoomation = {infoArray} func = {setInfoArray} toggler = {toggleCheckBox} />
-            <PointsAggregate pooints = {points} />
+            <TaskTable infoomation = {infoArray} setInfoomation = {setInfoArray} toggler = {toggleCheckBox} />
+            <PointsAggregate pooints = {jsonPoints} />
             <Button onClick={submitTasks}>SubmitTasks!</Button>
         </div>
     )
