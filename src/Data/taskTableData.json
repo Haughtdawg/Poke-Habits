@@ -1,6 +1,6 @@
 
 {
-    "information":
+    "taskData":
     [
         {"iD": 0, "pointAmt": 999, "title": "Did it work", "isCompleted" : false},
         {"iD": 1, "pointAmt": -50, "title": "who knows", "isCompleted" : false},

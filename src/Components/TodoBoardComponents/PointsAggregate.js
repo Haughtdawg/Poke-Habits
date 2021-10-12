@@ -1,11 +1,11 @@
 import React from 'react';
  
-export function PointsAggregate( {pooints} ){
+export function PointsAggregate( {points} ){
 
     return(
         <div>
             <p>
-                PokePoints: {pooints}!!
+                PokePoints: {points}!!
             </p>
         </div>
     )

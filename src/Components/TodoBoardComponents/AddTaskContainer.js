@@ -5,17 +5,24 @@ import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
+/*
+    Inputs: taskName, setTaskName, setShowModal
+    State variables: <none>
+    Parents: TodoBoard
+    Children: <none>
+*/
 export function AddTaskContainer({ taskName, setTaskName, setShowModal }){
-
+    /*
+        taskName: String title for the new task (state variable for TodoBoard)
+        setTaskName: setState function to update the taskName
+        setShowModal: setState function to bring up the add task confirmation modal
+    */
     return(
         <div className="AddTaskContainer d-flex ">
 
             {/* Break out into its own class */}
             <span className="d-flex flex-fill justify-content-center">
                 <Button onClick={()=> setShowModal(true)}>
-                    {/* confirm task with MODAL
-                    if confirmed, create object that takes in task name and grabs the next id and point value
-                    add the object to  infoomation :p (cause we aren't data-ing yet )*/}
                     <FontAwesomeIcon icon={ faPlus } />
                 </Button>
             </span>
@@ -24,7 +31,11 @@ export function AddTaskContainer({ taskName, setTaskName, setShowModal }){
             <span className="d-flex flex-fill justify-content-center">
                 <Form>
                     <Form.Label>Add Task</Form.Label>
-                    <Form.Control type="text" placeholder="Input task name here" onChange = {e => setTaskName(e.target.value)} value={taskName}></Form.Control>
+                    <Form.Control type="text" 
+                                  placeholder="Input task name here" 
+                                  onChange = {e => setTaskName(e.target.value)} 
+                                  value={taskName}>
+                    </Form.Control>
                 </Form>
             </span>
             

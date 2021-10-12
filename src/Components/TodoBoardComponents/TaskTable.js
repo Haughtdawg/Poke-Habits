@@ -3,62 +3,81 @@ import { TaskListItem } from './TaskListItem.js';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
-export function TaskTable( { infoomation, setInfoomation, toggler }){
-    const [taskIndex, setTaskIndex] = useState(0);
-    const [removeModal, setRemoveModal] = useState(false);
+/*
+    Inputs: taskArray, setTaskArray, toggler
+    State variables: taskIndex, removeModal
+    Parents: TodoBoard
+    Children: TaskListItem
+*/
 
+export function TaskTable( { taskArray, setTaskArray, toggler }){
+    /*
+        taskArray: Array of task objects (state variable of TodoBoard)
+        setTaskArray: setState function to update the taskArray
+        toggler: Callback function to toggle the check boxes of TaskListItem on click
+    */
+
+    const [taskIndex, setTaskIndex] = useState(0); // Index of the task to be removed 
+    const [removeModal, setRemoveModal] = useState(false); // Boolean to control the removal confirmation modal
+
+    // Function to open the modal and set the index of the selected task
     const openIt = (selectedKey) => {
-        const testKey = (e) => e.iD === selectedKey;
-        setTaskIndex(infoomation.findIndex(testKey));
-        setRemoveModal(true);
+        const testKey = (e) => e.iD === selectedKey; // Testing function to be passed to findIndex
+        setTaskIndex(taskArray.findIndex(testKey)); // Returns the index of the selected task and sets it to the taskIndex state
+        setRemoveModal(true); // Open the modal
     }
 
-    const closeIt = () => setRemoveModal(false);
+    // Function to close the modal
+    const closeIt = () => setRemoveModal(false); 
 
+    // Function to delete a task once confirmed
+    const deleteTask = () => {
+        /*
+            1. Close the modal
+            2. Create copy of the task data
+            3. Remove the task at taskIndex in the copied array
+            4. Set the copied array as the new task data
+        */
+        setRemoveModal(false);
+        const newTaskArray = taskArray; // Need to copy data because we can't directly mutate state variables
+        newTaskArray.splice(taskIndex, 1); // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice
+        setTaskArray(newTaskArray);
+        }
 
-    const tableInfo = infoomation.map((e) => <TaskListItem 
+    // Map each element of taskArray to a unique TaskListItem component
+    const tableInfo = taskArray.map((e) => <TaskListItem 
                                             pointAmt= {e.pointAmt} 
                                             title= {e.title} 
                                             taskId= {e.iD} 
                                             key= {e.iD.toString()} 
                                             deletionConfirm = {openIt}
                                             checkBoxState = {e.isCompleted}
-
-                                            func = {toggler}
+                                            toggler = {toggler}
                                             />);
+    // tableInfo is now an array of TaskListItem components- comprises each row of the TaskTable
 
+    return(  
+        <div>
+            <Modal show={removeModal} onHide= {closeIt}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Delete Task</Modal.Title>
+                </Modal.Header> 
+                <Modal.Body> 
+                    <p>
+                        {'Are you sure you want to delete task: ' + '"' + taskArray[taskIndex].title + '"?'}
+                    </p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button onClick={() => setRemoveModal(false)} >
+                        Cancel
+                    </Button>
 
-    return(
-        
-            <div>
-                <Modal show={removeModal} onHide= {closeIt}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>You Really Deleting this Bruv</Modal.Title>
-                    </Modal.Header> 
-                    <Modal.Body> 
-                        <p>
-                            {'Are you sure you want to delete task: ' + '"' + infoomation[taskIndex].title + '"?'}
-                        </p>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button onClick={() => setRemoveModal(false)} >
-                        DO NOT REMOVE FOR THE LOVE OF RYAN
-                        </Button>
-
-                        <Button onClick={() => {setRemoveModal(false);
-                        const mutableByPass = infoomation;
-                        mutableByPass.splice(taskIndex, 1);
-                        setInfoomation(mutableByPass);
-                          }} > 
-                        TO THE SHADOW REALM
-                        </Button>
-                    </Modal.Footer>
-
-                </Modal>
-
-                {tableInfo}
-            </div>
-
+                    <Button onClick={deleteTask} > 
+                        Confirm
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            {tableInfo}
+        </div>
     )
-
 }

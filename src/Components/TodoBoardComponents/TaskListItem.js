@@ -4,13 +4,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import Button from 'react-bootstrap/Button';
 
-
-
-export function TaskListItem( {pointAmt, title, taskId, deletionConfirm, checkBoxState, func} ) {
-   
-    const theIDFunction = () => {
-        deletionConfirm(taskId);
-    }
+/*
+    Inputs: pointAmt, title, taskId, deletionConfirm, checkBoxState, toggler
+    State variables: <none>
+    Parents: TaskTable
+    Children: <none>
+*/
+export function TaskListItem( {pointAmt, title, taskId, deletionConfirm, checkBoxState, toggler} ) {
+   /*
+        pointAmt: Int for how many points this task is worth
+        title: String name of the task
+        taskId: unique ID for this task
+        deletionConfirm: Callback function to open deletion confirm modal. Also sets the selected task in TaskTable
+        checkBoxState: Completed state for this task
+        toggler: Callback function to toggle the check boxes of TaskListItem on click
+   */
     
     return(
         <div className= "d-flex">
@@ -21,15 +29,9 @@ export function TaskListItem( {pointAmt, title, taskId, deletionConfirm, checkBo
             <span className = "d-flex flex-fill justify-content-center">{/*checkbox*/}
             <Form>
                 <Form.Check type= {'checkbox'}
-                value={checkBoxState}  onChange={
-                    () => {
-                        func(taskId)
-                        {/*create submit button->
-                        Modal to confirm the tasks to mark as complete
-                        get pointAmt s  and addthem to pokePoints
-                        remove apppropiate TaskListItems */}
-                    }
-                }/>
+                            value={checkBoxState}  
+                            onChange={() => {toggler(taskId)}}
+                />
             </Form>
             </span>
 
@@ -38,9 +40,8 @@ export function TaskListItem( {pointAmt, title, taskId, deletionConfirm, checkBo
             </span>
 
             <span className = "d-flex flex-fill justify-content-center">{/*Deletion*/}
-            <Button onClick = {theIDFunction}>
-                {/*pass {function, ID } function will take in ID  */}
-            <FontAwesomeIcon icon= {faTrash} />
+            <Button onClick = {() => deletionConfirm(taskId)}>
+                <FontAwesomeIcon icon= {faTrash} />
             </Button>
             </span>
            
