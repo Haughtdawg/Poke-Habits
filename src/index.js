@@ -2,13 +2,15 @@ import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 import Nav from 'react-bootstrap/Nav';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { TodoBoard } from './Components/TodoBoard.js';
-import { PointsPage } from './Components/PointsPage.js';
+import { ToDoPage } from './Components/TodoPage.js';
+import { StorePage } from './Components/StorePage.js';
+import { points } from './Data/PokePoints.json';
 import './index.css';
 
-function TodoPage(){
+function PokeToDo(){
     const [window, setWindow] = useState('home')
-    console.log(window === 'home')
+    const [jsonPoints, setJsonPoints] = useState(points)
+
     // imported from https://react-bootstrap.github.io/components/navs/
     return(
         <div>
@@ -17,21 +19,21 @@ function TodoPage(){
                     <Nav.Link eventKey='home'>Todo</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link eventKey="points">Points</Nav.Link>
+                    <Nav.Link eventKey="store">Store</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                     <Nav.Link eventKey="collections">Collection</Nav.Link>
                 </Nav.Item>
             </Nav>
             <h1>Poke-Habits</h1>
-            {(window==='home')&&<TodoBoard/>}
-            {(window ==='points')&&<PointsPage/>}          
+            {(window==='home')&&<ToDoPage jsonPoints = {jsonPoints} setJsonPoints = {setJsonPoints}/>}
+            {(window ==='store')&&<StorePage jsonPoints = {jsonPoints}/>}          
         </div>
     )
 };
 
 ReactDOM.render(
-    <TodoPage />,
+    <PokeToDo />,
     document.getElementById('root')
   );
 

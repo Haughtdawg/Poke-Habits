@@ -4,7 +4,6 @@ import { AddTaskContainer } from './TodoBoardComponents/AddTaskContainer.js';
 import { TaskTable } from './TodoBoardComponents/TaskTable.js';
 import { PointsAggregate } from './TodoBoardComponents/PointsAggregate.js';
 import { taskData } from '../Data/taskTableData.json';
-import { points } from '../Data/PokePoints.json';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
@@ -15,14 +14,14 @@ import Button from 'react-bootstrap/Button';
     Children: AddTaskContainer, TaskTable, PointsAggregate
 */
 
-export function TodoBoard(){
+export function ToDoPage({jsonPoints, setJsonPoints}){
     const [taskArray, setTaskArray] = useState(taskData); // Array of Todo Objects
     const [addModal, setAddModal] = useState(false); // Boolean to control the add task modal
     const [newTaskName, setNewTaskName] = useState(''); // Title for the add task controlled text input
     // Remove nextId as a state when we create tasks from a database
     const [nextID, setNextID] = useState(4); // Id property for the next task to be created; increments upon creating a new task
     const [newTaskPoints, setNewTaskPoints] = useState(5); // pointAmt property for the next task to be created
-    const [jsonPoints, setJsonPoints] = useState(points); // Points displayed in the PointsAggregate component
+    //const [jsonPoints, setJsonPoints] = useState(points); // Points displayed in the PointsAggregate component
     
     // Function to toggle the tasklistitem checkboxes inside TaskTable
     const toggleCheckBox = (checkedID) =>{
