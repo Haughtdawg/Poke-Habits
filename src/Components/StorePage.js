@@ -30,7 +30,7 @@ export function StorePage( {jsonPoints, setJsonPoints, setWindow} ){
 
     //Function set the window to Collections to move to the Collections Page and close the monster modal
     const toCollection = () => {
-        setWindow("collections")
+        setWindow("collection")
         setModalMon(false)
 
     }

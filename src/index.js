@@ -16,7 +16,7 @@ function PokeToDo(){
     // imported from https://react-bootstrap.github.io/components/navs/
     return(
         <div>
-            <Nav variant="tabs" defaultActiveKey="/home" onSelect={eventKey => setWindow(eventKey)}>
+            <Nav variant="tabs" activeKey={window} defaultActiveKey="/home" onSelect={eventKey => setWindow(eventKey)}>
                 <Nav.Item>
                     <Nav.Link eventKey='home'>Todo</Nav.Link>
                 </Nav.Item>
