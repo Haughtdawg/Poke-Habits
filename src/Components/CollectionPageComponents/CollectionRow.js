@@ -1,0 +1,30 @@
+import React from 'react';
+import '../../index.css';
+import { CollectionItem } from './CollectionItem';
+
+
+/*
+    Inputs: rowData
+    State variables: <none>
+    Parents: CollectionTable
+    Children: CollectionItem
+*/
+
+export function CollectionRow( { rowData } ){   
+/*
+    Component to lay out a row of pokemon in your collection
+
+    rowData: Array of pokemon objects to be rendered in this row
+*/
+    const collectionItems = rowData.map( (element, i) => {
+        return(
+            <CollectionItem pokemon={element} notEmpty = {element.name !== undefined} key={i}/>
+        )
+    })
+
+    return(
+        <div className= "d-flex">
+            {collectionItems}
+        </div>
+    )
+}
