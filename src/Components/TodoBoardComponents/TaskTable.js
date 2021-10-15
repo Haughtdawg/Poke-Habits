@@ -6,13 +6,13 @@ import Button from 'react-bootstrap/Button';
 /*
     Inputs: taskArray, setTaskArray, toggler
     State variables: taskIndex, removeModal
-    Parents: TodoBoard
+    Parents: ToDoPage
     Children: TaskListItem
 */
 
 export function TaskTable( { taskArray, setTaskArray, toggler }){
     /*
-        taskArray: Array of task objects (state variable of TodoBoard)
+        taskArray: Array of task objects (state variable of ToDoPage)
         setTaskArray: setState function to update the taskArray
         toggler: Callback function to toggle the check boxes of TaskListItem on click
     */

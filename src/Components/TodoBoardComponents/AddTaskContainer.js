@@ -8,12 +8,12 @@ import Form from 'react-bootstrap/Form';
 /*
     Inputs: taskName, setTaskName, setShowModal
     State variables: <none>
-    Parents: TodoBoard
+    Parents: TodoPage
     Children: <none>
 */
 export function AddTaskContainer({ taskName, setTaskName, setShowModal }){
     /*
-        taskName: String title for the new task (state variable for TodoBoard)
+        taskName: String title for the new task (state variable for TodoPage)
         setTaskName: setState function to update the taskName
         setShowModal: setState function to bring up the add task confirmation modal
     */

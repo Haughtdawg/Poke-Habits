@@ -27,7 +27,7 @@ function PokeToDo(){
             </Nav>
             <h1>Poke-Habits</h1>
             {(window==='home')&&<ToDoPage jsonPoints = {jsonPoints} setJsonPoints = {setJsonPoints}/>}
-            {(window ==='store')&&<StorePage jsonPoints = {jsonPoints}/>}          
+            {(window ==='store')&&<StorePage jsonPoints = {jsonPoints} setJsonPoints = {setJsonPoints} setWindow = {setWindow}/>}          
         </div>
     )
 };

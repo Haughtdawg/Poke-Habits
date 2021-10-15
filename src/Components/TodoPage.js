@@ -8,9 +8,9 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
 /*
-    Inputs: <none>
+    Inputs: jsonPoints, setJsonPoints
     State variables: taskArray, addModal, newTaskName, nextID, newTaskPoints, jsonPoints
-    Parents: TodoPage
+    Parents: PokeToDo
     Children: AddTaskContainer, TaskTable, PointsAggregate
 */
 
