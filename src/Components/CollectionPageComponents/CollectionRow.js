@@ -10,7 +10,7 @@ import { CollectionItem } from './CollectionItem';
     Children: CollectionItem
 */
 
-export function CollectionRow( { rowData } ){   
+export function CollectionRow( { rowData, isEgg, startHatch } ){   
 /*
     Component to lay out a row of pokemon in your collection
 
@@ -18,7 +18,7 @@ export function CollectionRow( { rowData } ){
 */
     const collectionItems = rowData.map( (element, i) => {
         return(
-            <CollectionItem pokemon={element} notEmpty = {element.name !== undefined} key={i}/>
+            <CollectionItem item={element} notEmpty = {element.iD !== undefined} isEgg={isEgg} startHatch={startHatch} key={i}/>
         )
     })
 

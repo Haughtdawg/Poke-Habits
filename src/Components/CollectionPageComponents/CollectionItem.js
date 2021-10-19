@@ -1,22 +1,28 @@
 import React from 'react';
+import Button from 'react-bootstrap/Button';
 import '../../index.css';
 /*
-    Inputs: pokemon
+    Inputs: item, notEmpty, isEgg, startHatch
     State variables: <none>
     Parents: CollectionRow
     Children: <none>
 */
 
-export function CollectionItem({pokemon, notEmpty}){   
+export function CollectionItem({ item, notEmpty, isEgg, startHatch }){   
 /*
-    Component to render a single pokemon in your collection
+    Component to render a single item in your collection (egg or pokemon)
 */
-    console.log(pokemon.name)
-    console.log(notEmpty)
+    const image = isEgg ? "https://cdn2.bulbagarden.net/upload/4/45/Spr_4d_Egg.png" : item.image;
+    const text = isEgg ? "egg" : item.name;
+    const haveEgg = isEgg&&notEmpty;
+    const pointsText = item.ptsRemaining === 1 ? " Point Remaining" : " Points Remaining";
+
     return(
         <span className = "d-flex flex-fill justify-content-center align-items-center flex-column">
-            {notEmpty&&<img src={pokemon.image} alt={pokemon.name}/>}
-            {notEmpty&&<p>{pokemon.name}</p>}
+            {notEmpty&&<img src={image} alt={text}/>}
+            {notEmpty&&<p>{text}</p>}
+            {haveEgg&&item.isHatchable&&<Button onClick={startHatch}>Hatch Now!</Button>}
+            {haveEgg&&!item.isHatchable&&<p>{item.ptsRemaining + pointsText}</p>}
         </span>
     )
 }

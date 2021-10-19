@@ -14,7 +14,7 @@ import Button from 'react-bootstrap/Button';
     Children: AddTaskContainer, TaskTable, PointsAggregate
 */
 
-export function ToDoPage({jsonPoints, setJsonPoints}){
+export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs}){
     const [taskArray, setTaskArray] = useState(taskData); // Array of Todo Objects
     const [addModal, setAddModal] = useState(false); // Boolean to control the add task modal
     const [newTaskName, setNewTaskName] = useState(''); // Title for the add task controlled text input
@@ -45,7 +45,19 @@ export function ToDoPage({jsonPoints, setJsonPoints}){
             Use the reduce method to sum the tasks that have the isCompleted property == true
             Then add that value to jsonPoints and use the setState function to update its value 
         */ 
-        setJsonPoints(jsonPoints + taskArray.reduce( (prev,current) => prev + (current.isCompleted ? current.pointAmt : 0),0));
+        const additionalPoints = taskArray.reduce( (prev,current) => prev + (current.isCompleted ? current.pointAmt : 0),0);
+        setJsonPoints(jsonPoints + additionalPoints);
+
+        // Reduce points remaining for each egg and reassess if it is hatchable
+        
+        const newEggs = eggs.map( egg => {
+            const newPointsRemaining = egg.ptsRemaining - additionalPoints;
+            const isHatchable = newPointsRemaining <= 0;
+            return {iD: egg.iD, ptsRemaining: newPointsRemaining, name: egg.name, 
+                    isHatchable: isHatchable, pokemonImage: egg.pokemonImage}
+        } )
+        console.log(newEggs);
+        setEggs(newEggs);
 
         // Filter out the tasks that have not been completed- this will be our new array of tasks to keep
         const keepArray = taskArray.filter(o => !o.isCompleted);

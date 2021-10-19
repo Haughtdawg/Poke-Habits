@@ -1,0 +1,8 @@
+{
+    "eggs":
+    [
+        {"iD": 0, "ptsRemaining": 1000001, "name": "Seadra", "isHatchable": false, "pokemonImage": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/117.png"},
+        {"iD": 1, "ptsRemaining": 1000001, "name": "Cyndaquil", "isHatchable": false, "pokemonImage": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/155.png"},
+        {"iD": 2, "ptsRemaining": 1000000, "name": "Emolga", "isHatchable": false, "pokemonImage": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/587.png"}
+    ]
+}
