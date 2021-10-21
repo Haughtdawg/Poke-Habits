@@ -56,7 +56,6 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs}){
             return {iD: egg.iD, ptsRemaining: newPointsRemaining, name: egg.name, 
                     isHatchable: isHatchable, pokemonImage: egg.pokemonImage}
         } )
-        console.log(newEggs);
         setEggs(newEggs);
 
         // Filter out the tasks that have not been completed- this will be our new array of tasks to keep

@@ -15,7 +15,7 @@ function PokeToDo(){
     const [window, setWindow] = useState('home');
     const [jsonPoints, setJsonPoints] = useState(points);
     const [pokemonData, setPokemonData] = useState(pokemon);
-    const [eggData, setEggsData] = useState(eggs);
+    const [eggData, setEggsData] = useState(eggs); //Eggs, you meant Egg <-   --_____ --
 
     // imported from https://react-bootstrap.github.io/components/navs/
     return(
@@ -33,7 +33,7 @@ function PokeToDo(){
             </Nav>
             <h1>Poke-Habits</h1>
             {(window ==='home')&&<ToDoPage jsonPoints = {jsonPoints} setJsonPoints = {setJsonPoints} eggs = {eggData} setEggs= {setEggsData}/>}
-            {(window ==='store')&&<StorePage jsonPoints = {jsonPoints} setJsonPoints = {setJsonPoints} setWindow = {setWindow}/>}  
+            {(window ==='store')&&<StorePage jsonPoints = {jsonPoints} setJsonPoints = {setJsonPoints} setWindow = {setWindow} eggData = {eggData} setEggsData = {setEggsData}/>}  
             {(window === 'collection')&&<CollectionPage pokemonData = {pokemonData} eggData={eggData} startHatch={() => setWindow('hatch')}/>}   
             {(window === 'hatch')&&<HatchPage/>}  
         </div>
