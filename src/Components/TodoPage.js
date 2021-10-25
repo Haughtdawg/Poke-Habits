@@ -6,6 +6,7 @@ import { PointsAggregate } from './TodoBoardComponents/PointsAggregate.js';
 import { taskData } from '../Data/taskTableData.json';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert'
 
 /*
     Inputs: jsonPoints, setJsonPoints
@@ -14,7 +15,7 @@ import Button from 'react-bootstrap/Button';
     Children: AddTaskContainer, TaskTable, PointsAggregate
 */
 
-export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs}){
+export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs, setWindow}){
     const [taskArray, setTaskArray] = useState(taskData); // Array of Todo Objects
     const [addModal, setAddModal] = useState(false); // Boolean to control the add task modal
     const [newTaskName, setNewTaskName] = useState(''); // Title for the add task controlled text input
@@ -22,6 +23,13 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs}){
     const [nextID, setNextID] = useState(4); // Id property for the next task to be created; increments upon creating a new task
     const [newTaskPoints, setNewTaskPoints] = useState(5); // pointAmt property for the next task to be created
     //const [jsonPoints, setJsonPoints] = useState(points); // Points displayed in the PointsAggregate component
+    const [showEggAlert, setShowEggAlert] = useState(false);
+
+    // Function to accept the Egg Alert and go to Collection Page
+    const acceptEggAlert = ()=>{
+        setShowEggAlert(false);
+        setWindow('collection');
+    }
     
     // Function to toggle the tasklistitem checkboxes inside TaskTable
     const toggleCheckBox = (checkedID) =>{
@@ -53,6 +61,9 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs}){
         const newEggs = eggs.map( egg => {
             const newPointsRemaining = egg.ptsRemaining - additionalPoints;
             const isHatchable = newPointsRemaining <= 0;
+            if(isHatchable){
+                setShowEggAlert(true);
+            }
             return {iD: egg.iD, ptsRemaining: newPointsRemaining, name: egg.name, 
                     isHatchable: isHatchable, pokemonImage: egg.pokemonImage}
         } )
@@ -86,25 +97,37 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs}){
     return(
         <div>
             <Modal show={addModal} onHide= {() =>  setAddModal(false)}>
-                    <Modal.Header>
-                        <Modal.Title>Adding Task</Modal.Title>
-                    </Modal.Header> 
-                    <Modal.Body> 
-                        <p>
-                            {'Are you sure you want to add the following: ' + '"' + newTaskName + '"?'}
-                        </p>
-                        </Modal.Body>
-                    <Modal.Footer>
-                        <Button onClick={() =>  setAddModal(false)} >
-                        Cancel
-                        </Button>
+                <Modal.Header>
+                    <Modal.Title>Adding Task</Modal.Title>
+                </Modal.Header> 
+                <Modal.Body> 
+                    <p>
+                        {'Are you sure you want to add the following: ' + '"' + newTaskName + '"?'}
+                    </p>
+                    </Modal.Body>
+                <Modal.Footer>
+                    <Button onClick={() =>  setAddModal(false)} >
+                    Cancel
+                    </Button>
 
-                        <Button onClick={ addTask }> 
-                        Confirm
-                        </Button>
-                    </Modal.Footer>
+                    <Button onClick={ addTask }> 
+                    Confirm
+                    </Button>
+                </Modal.Footer>
 
-                </Modal>
+            </Modal>
+            <Alert show={showEggAlert} variant="success" onClose={() => {setShowEggAlert(false)}} dismissible>
+                <Alert.Heading>One of your eggs is ready to hatch!</Alert.Heading>
+                <p>
+                Click below to go to your Collection Page and hatch it!
+                </p>
+                <hr />
+                <div className="d-flex justify-content-end">
+                <Button onClick={acceptEggAlert} variant="outline-success">
+                    Collection Page
+                </Button>
+                </div>
+            </Alert>
 
             <h2>TODO</h2>
             <AddTaskContainer taskName = {newTaskName} setTaskName = {setNewTaskName} setShowModal = { setAddModal }/>
