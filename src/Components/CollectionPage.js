@@ -9,14 +9,14 @@ import '../index.css';
     Children:
 */
 
-export function CollectionPage({pokemonData, eggData, startHatch}){   
+export function CollectionPage({pokemonData, setPokemonData, eggData, setEggsData, startHatch}){   
 /*
     Page for viewing pokemon in your collection
 */
     return(
         <div>
             <h2>Your Collection:</h2>
-            <CollectionTable pokemonData={pokemonData} eggData={eggData} startHatch={startHatch}/>
+            <CollectionTable pokemonData={pokemonData} setPokemonData={setPokemonData} eggData={eggData} setEggsData= {setEggsData} startHatch={startHatch}/>
         </div>
     )
 }
