@@ -19,26 +19,23 @@ export function CollectionTable( {eggData, setEggsData, pokemonData, setPokemonD
 */
 
 const newPokeLessEgg = (selectediD) =>{
+
     const testId = (e) => e.iD === selectediD;
-        const eggIndex = eggRows.findIndex(testId);
-        console.log("eggIndex");
-        console.log(eggIndex);
+        const eggIndex = eggData.findIndex(testId);
 
         const newPokemon = {
             iD: eggData[eggIndex].iD,
             name: eggData[eggIndex].name,
             image: eggData[eggIndex].pokemonImage
         }
-        console.log("newPokemonObject");
-        console.log(newPokemon);
+
         const newUnshiftedPokemonData = pokemonData;
-        setPokemonData(newUnshiftedPokemonData.unshift(newPokemon));
-        console.log("pokemonData");
-        console.log(pokemonData);
+        newUnshiftedPokemonData.unshift(newPokemon);
+        setPokemonData(newUnshiftedPokemonData);
+
         const newSplicedEggData = eggData;
-        setEggsData(newSplicedEggData.splice(eggIndex, 1));
-        console.log("eggData");
-        console.log(eggData);
+        newSplicedEggData.splice(eggIndex, 1)
+        setEggsData(newSplicedEggData);
     }
    
 

@@ -14,10 +14,10 @@ export function HatchPage( {setWindow, pokemonData}){
     Show me the hatch
 */
     const image = pokemonData[0].image;
-    const text = "heey";
+    const text = pokemonData[0].image;
     return(
         <div>
-            {<img src={image} alt={text}/>}
+            <img src={image} alt={text}/>
             
             
             <p>

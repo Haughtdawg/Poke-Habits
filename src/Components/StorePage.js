@@ -34,9 +34,10 @@ import '../index.css';
         const newEgg = { 
             iD: POKENUMBER,
             ptsRemaining: 1000001,
-            name: pokeAPICall.name,
+            name: pokeAPICall.name[0].toUpperCase()+ pokeAPICall.name.slice(1),
             isHatchable: false,
             pokemonImage: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'+POKENUMBER+'.png'};
+            
         newEggData.unshift(newEgg);
         setEggsData(newEggData);
         //set the egg data with info from pokeAPICall
