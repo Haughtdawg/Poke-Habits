@@ -8,7 +8,7 @@ import '../../index.css';
     Children: <none>
 */
 
-export function CollectionItem({ item, notEmpty, isEgg, startHatch }){   
+export function CollectionItem({ item, notEmpty, isEgg, startHatch, newPokeLessEgg}){   
 /*
     Component to render a single item in your collection (egg or pokemon)
 */
@@ -21,7 +21,12 @@ export function CollectionItem({ item, notEmpty, isEgg, startHatch }){
         <span className = "d-flex flex-fill justify-content-center align-items-center flex-column">
             {notEmpty&&<img src={image} alt={text}/>}
             {notEmpty&&<p>{text}</p>}
-            {haveEgg&&item.isHatchable&&<Button onClick={startHatch}>Hatch Now!</Button>}
+            {haveEgg&&item.isHatchable&&<Button onClick= { () => {
+                                                        startHatch()
+                                                        newPokeLessEgg(item.iD)
+                                                        }}>
+                                                        Hatch Now!
+                                        </Button>}
             {haveEgg&&!item.isHatchable&&<p>{item.ptsRemaining + pointsText}</p>}
         </span>
     )

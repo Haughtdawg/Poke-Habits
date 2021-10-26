@@ -17,6 +17,7 @@ function PokeToDo(){
     const [pokemonData, setPokemonData] = useState(pokemon);
     const [eggData, setEggsData] = useState(eggs); //Eggs, you meant Egg <-   --_____ --
 
+
     // imported from https://react-bootstrap.github.io/components/navs/
     return(
         <div>
@@ -32,10 +33,10 @@ function PokeToDo(){
                 </Nav.Item>
             </Nav>
             <h1>Poke-Habits</h1>
-            {(window ==='home')&&<ToDoPage jsonPoints = {jsonPoints} setJsonPoints = {setJsonPoints} eggs = {eggData} setEggs= {setEggsData}/>}
+            {(window ==='home')&&<ToDoPage jsonPoints = {jsonPoints} setJsonPoints = {setJsonPoints} eggs = {eggData} setEggs= {setEggsData} setWindow={setWindow}/>}
             {(window ==='store')&&<StorePage jsonPoints = {jsonPoints} setJsonPoints = {setJsonPoints} setWindow = {setWindow} eggData = {eggData} setEggsData = {setEggsData}/>}  
-            {(window === 'collection')&&<CollectionPage pokemonData = {pokemonData} eggData={eggData} startHatch={() => setWindow('hatch')}/>}   
-            {(window === 'hatch')&&<HatchPage/>}  
+            {(window === 'collection')&&<CollectionPage pokemonData = {pokemonData} setPokemonData={setPokemonData} eggData={eggData} setEggsData={setEggsData} startHatch={() => setWindow('hatch')}/>}   
+            {(window === 'hatch')&&<HatchPage setWindow= {setWindow} pokemonData = {pokemonData}/>}  
         </div>
     )
 };

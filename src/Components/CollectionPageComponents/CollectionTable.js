@@ -11,12 +11,38 @@ import { CollectionRow } from './CollectionRow';
 */
 
 
-export function CollectionTable( {eggData, pokemonData, startHatch} ){   
+export function CollectionTable( {eggData, setEggsData, pokemonData, setPokemonData, startHatch} ){   
 /*
     Component to lay out pokemon in your collection
 
     pokemonData: Array of pokemon objects in the user's collection
 */
+
+const newPokeLessEgg = (selectediD) =>{
+    const testId = (e) => e.iD === selectediD;
+        const eggIndex = eggRows.findIndex(testId);
+        console.log("eggIndex");
+        console.log(eggIndex);
+
+        const newPokemon = {
+            iD: eggData[eggIndex].iD,
+            name: eggData[eggIndex].name,
+            image: eggData[eggIndex].pokemonImage
+        }
+        console.log("newPokemonObject");
+        console.log(newPokemon);
+        const newUnshiftedPokemonData = pokemonData;
+        setPokemonData(newUnshiftedPokemonData.unshift(newPokemon));
+        console.log("pokemonData");
+        console.log(pokemonData);
+        const newSplicedEggData = eggData;
+        setEggsData(newSplicedEggData.splice(eggIndex, 1));
+        console.log("eggData");
+        console.log(eggData);
+    }
+   
+
+
     const createRows = (collectionData, isEgg, startHatch) => {
         const numCols = 3; // 3 collection items per row, for now
         const tableData = Array(Math.ceil(collectionData.length/numCols)); // Number of rows needed
@@ -31,7 +57,7 @@ export function CollectionTable( {eggData, pokemonData, startHatch} ){
 
         // Map each element of tableData (the row data) to a CollectionRow component
         const tableRows = tableData.map((row, index) => {
-            return(<CollectionRow rowData = {row} key={index} isEgg={isEgg} startHatch={startHatch}/> 
+            return(<CollectionRow rowData = {row} key={index} isEgg={isEgg} startHatch={startHatch} newPokeLessEgg={newPokeLessEgg}/> 
         )})
         return tableRows
     }
