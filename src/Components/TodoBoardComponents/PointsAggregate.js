@@ -11,9 +11,9 @@ export function PointsAggregate( {points} ){
 
     return(
         <div>
-            <p>
-                PokePoints: {points}!!
-            </p>
+            <h2>
+                You have {points} PokePoints!
+            </h2>
         </div>
     )
 }

@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { TaskListItem } from './TaskListItem.js';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Stack from 'react-bootstrap/Stack';
 /*
     Inputs: taskArray, setTaskArray, toggler
     State variables: taskIndex, removeModal
@@ -77,7 +80,23 @@ export function TaskTable( { taskArray, setTaskArray, toggler }){
                     </Button>
                 </Modal.Footer>
             </Modal>
-            {tableInfo}
+            <Row className="mt-5 border-bottom">
+                <Col xs={4} className="d-flex justify-content-center">
+                    <h3 className="mb-0">Point Value</h3>
+                </Col>
+                <Col xs={1}>
+                </Col>
+                <Col xs={6} className="d-flex justify-content-center">
+                    <h3 className="mb-0">Task Title</h3>
+                </Col>
+                <Col xs={1}>
+                </Col>
+            </Row>
+            <Container className="mt-2">
+                <Stack gap={2}>
+                    {tableInfo}
+                </Stack>
+            </Container>
         </div>
     )
 }
