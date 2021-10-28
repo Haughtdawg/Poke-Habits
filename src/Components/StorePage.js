@@ -5,18 +5,26 @@ import '../index.css';
 
 
 /*
+    Capture
+    Inputs: eggData, setEggsData
+    State variables: <none>
+    Parents: StorePage
+    Children: <none>
+*/
+/*
+    StorePage
     Inputs: jsonPoints, setJsonPoints, setWindow, eggData, setEggsData
     State variables: ModalMon
     Parents: PokeToDo
-    Children: <none>
+    Children: StorePage
 */
 
  async function Capture( eggData, setEggsData ){
     /*
-     * Capture will determine the user's capture value and compare it to a pokemon's cpature value, thereby determining what the pokemon in th pokeegg will be.
+        Capture will determine the user's capture value and compare it to a pokemon's capture value, thereby determining what the pokemon in the pokeegg will be.
      */
         const MAXCAPTUREVALUE = 254; //Determined by the pokemon definedd max capture valus of 255
-        const NUMPOKEMON = 150; //the number of pokemon to work with
+        const NUMPOKEMON = 150; //the number of pokemon to work with, (currently Gen 1)
         let POKENUMBER = Math.floor(Math.random()* NUMPOKEMON +1); //generate the next random pokemon number
         let userCaptureRoll = Math.floor(Math.random()*MAXCAPTUREVALUE +1); // give a random value [1, 255]
         let pokeAPICall = await fetch('https://pokeapi.co/api/v2/pokemon-species/' + POKENUMBER)
@@ -30,23 +38,27 @@ import '../index.css';
             pokeCaptureValue = await pokeAPICall.capture_rate;
         }
 
-        const newEggData = eggData;
+        const ptsRemaining = 255*(pokeAPICall.hatch_counter+1); //Formula from hatch rate decription of pokeAPI
+
+
+        const newEggData = eggData; //create a copy of EggData
+
+        //generate a new Egg Object
         const newEgg = { 
             iD: POKENUMBER,
-            ptsRemaining: 1000001,
+            stepsToHatch: ptsRemaining,
             name: pokeAPICall.name[0].toUpperCase()+ pokeAPICall.name.slice(1),
             isHatchable: false,
             pokemonImage: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'+POKENUMBER+'.png'};
             
-        newEggData.unshift(newEgg);
-        setEggsData(newEggData);
-        //set the egg data with info from pokeAPICall
-        //add that egg to collections page
-        //send info to HatchPage.js 
-
+        newEggData.unshift(newEgg); //add new Egg object into newEggData array
+        setEggsData(newEggData); // set Egg data with new Egg Data array
 }
 
 export function StorePage( {jsonPoints, setJsonPoints, setWindow, eggData, setEggsData} ){
+    /*
+        Page for viewing the Store
+    */
     
     const [ModalMon, setModalMon] = useState(false); //Boolean to control the new pokemon modal
     

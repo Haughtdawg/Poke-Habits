@@ -3,15 +3,15 @@ import '../index.css';
 import Button from 'react-bootstrap/Button';
 
 /*
-    Inputs: setWindow, eggsData, setEggsData, pokemonData, setPokemonData
-    State variables: 
-    Parents: PokeTo-Do
-    Children:none... yet -.-
+    Inputs: setWindow, setPokemonData
+    State variables: <none>
+    Parents: PokeToDo
+    Children:<none>
 */
 
 export function HatchPage( {setWindow, pokemonData}){   
 /*
-    Show me the hatch
+    Page that displays which pokemon has been hatched
 */
     const image = pokemonData[0].image;
     const text = pokemonData[0].image;
@@ -21,7 +21,7 @@ export function HatchPage( {setWindow, pokemonData}){
             
             
             <p>
-                Congratulations, your egg has digivoled into: {pokemonData[0].name}!
+                Congratulations, your egg has hatched into: {pokemonData[0].name}!
             </p>
             <Button onClick= {()=> setWindow("collection")}>
                 Collections

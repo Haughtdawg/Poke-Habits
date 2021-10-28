@@ -59,12 +59,12 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs, setWindow}){
         // Reduce points remaining for each egg and reassess if it is hatchable
         
         const newEggs = eggs.map( egg => {
-            const newPointsRemaining = egg.ptsRemaining - additionalPoints;
+            const newPointsRemaining = egg.stepsToHatch - additionalPoints;
             const isHatchable = newPointsRemaining <= 0;
             if(isHatchable){
                 setShowEggAlert(true);
             }
-            return {iD: egg.iD, ptsRemaining: newPointsRemaining, name: egg.name, 
+            return {iD: egg.iD, stepsToHatch: newPointsRemaining, name: egg.name, 
                     isHatchable: isHatchable, pokemonImage: egg.pokemonImage}
         } )
         setEggs(newEggs);

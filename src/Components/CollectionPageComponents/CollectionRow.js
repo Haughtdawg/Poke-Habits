@@ -4,7 +4,7 @@ import { CollectionItem } from './CollectionItem';
 
 
 /*
-    Inputs: rowData
+    Inputs: rowData, isEgg, startHatch, newPokeLessEgg
     State variables: <none>
     Parents: CollectionTable
     Children: CollectionItem
@@ -12,7 +12,7 @@ import { CollectionItem } from './CollectionItem';
 
 export function CollectionRow( { rowData, isEgg, startHatch, newPokeLessEgg}  ){   
 /*
-    Component to lay out a row of pokemon in your collection
+    Component to lay out a row of pokemon in your collection page
 
     rowData: Array of pokemon objects to be rendered in this row
 */

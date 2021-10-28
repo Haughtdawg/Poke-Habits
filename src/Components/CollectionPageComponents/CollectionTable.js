@@ -4,7 +4,7 @@ import { CollectionRow } from './CollectionRow';
 
 
 /*
-    Inputs: collectionData
+    Inputs: eggData, setEggsData, pokemonData, setPokemonData, startHatch
     State variables: <none>
     Parents: PokeTodo
     Children: CollectionRow
@@ -19,20 +19,29 @@ export function CollectionTable( {eggData, setEggsData, pokemonData, setPokemonD
 */
 
 const newPokeLessEgg = (selectediD) =>{
+    /*
+        generate a new pokemon based on the egg to hatch
+        
+    */
 
+
+    // testing condition to find the egg index of the hatching egg
     const testId = (e) => e.iD === selectediD;
         const eggIndex = eggData.findIndex(testId);
 
+        //generate a new Pokemon object based on the data in the Egg
         const newPokemon = {
             iD: eggData[eggIndex].iD,
             name: eggData[eggIndex].name,
             image: eggData[eggIndex].pokemonImage
         }
 
+        //update pokemon Data with the new Pokemon object
         const newUnshiftedPokemonData = pokemonData;
         newUnshiftedPokemonData.unshift(newPokemon);
         setPokemonData(newUnshiftedPokemonData);
 
+        //splice egg Data from the hatched egg out 
         const newSplicedEggData = eggData;
         newSplicedEggData.splice(eggIndex, 1)
         setEggsData(newSplicedEggData);

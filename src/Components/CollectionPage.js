@@ -3,15 +3,15 @@ import { CollectionTable } from './CollectionPageComponents/CollectionTable';
 
 import '../index.css';
 /*
-    Inputs: 
-    State variables: 
-    Parents: 
-    Children:
+    Inputs: poekmonData, setPokemonData, eggData, setEggsData, startHatch
+    State variables: <none>
+    Parents: pokeToDo
+    Children: CollectionTable
 */
 
 export function CollectionPage({pokemonData, setPokemonData, eggData, setEggsData, startHatch}){   
 /*
-    Page for viewing pokemon in your collection
+    Page for viewing eggs and pokemon in your collection
 */
     return(
         <div>
