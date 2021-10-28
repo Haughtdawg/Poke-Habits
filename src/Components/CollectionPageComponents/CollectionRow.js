@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../index.css';
 import { CollectionItem } from './CollectionItem';
-
+import Row from 'react-bootstrap/Row';
 
 /*
     Inputs: rowData, isEgg, startHatch, newPokeLessEgg
@@ -23,8 +23,6 @@ export function CollectionRow( { rowData, isEgg, startHatch, newPokeLessEgg}  ){
     })
 
     return(
-        <div className= "d-flex">
-            {collectionItems}
-        </div>
+            <Row>{collectionItems}</Row>
     )
 }

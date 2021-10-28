@@ -32,7 +32,7 @@ function PokeToDo(){
                     <Nav.Link eventKey="collection">Collection</Nav.Link>
                 </Nav.Item>
             </Nav>
-            <h1>Poke-Habits</h1>
+            <h1>Poké-Habits</h1>
             {(window ==='home')&&<ToDoPage jsonPoints = {jsonPoints} setJsonPoints = {setJsonPoints} eggs = {eggData} setEggs= {setEggsData} setWindow={setWindow}/>}
             {(window ==='store')&&<StorePage jsonPoints = {jsonPoints} setJsonPoints = {setJsonPoints} setWindow = {setWindow} eggData = {eggData} setEggsData = {setEggsData}/>}  
             {(window === 'collection')&&<CollectionPage pokemonData = {pokemonData} setPokemonData={setPokemonData} eggData={eggData} setEggsData={setEggsData} startHatch={() => setWindow('hatch')}/>}   

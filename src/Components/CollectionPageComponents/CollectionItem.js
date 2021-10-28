@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import '../../index.css';
+import Col from 'react-bootstrap/Col';
 /*
     Inputs: item, notEmpty, isEgg, startHatch, newPokeLessEgg
     State variables: <none>
@@ -13,23 +14,23 @@ export function CollectionItem({ item, notEmpty, isEgg, startHatch, newPokeLessE
     Component to render a single item in your collection (egg or pokemon)
 */
 
-    //conditionals for whether the item is an egg or a pokemon and its related attributes
+    // Conditionals for whether the item is an egg or a pokemon and its related attributes
     const image = isEgg ? "https://cdn2.bulbagarden.net/upload/4/45/Spr_4d_Egg.png" : item.image; 
-    const text = isEgg ? "egg" : item.name;
+    const text = isEgg ? "Pokémon Egg" : item.name;
     const haveEgg = isEgg&&notEmpty;
     const pointsText = item.stepsToHatch === 1 ? " Point Remaining" : " Points Remaining";
 
     return(
-        <span className = "d-flex flex-fill justify-content-center align-items-center flex-column">
+        <Col className="d-flex flex-column align-items-center">
             {notEmpty&&<img src={image} alt={text}/>}
-            {notEmpty&&<p>{text}</p>}
+            {notEmpty&&<p className="text-center fs-5">{text}</p>}
             {haveEgg&&item.isHatchable&&<Button onClick= { () => {
                                                         startHatch()
                                                         newPokeLessEgg(item.iD)
                                                         }}>
                                                         Hatch Now!
                                         </Button>}
-            {haveEgg&&!item.isHatchable&&<p>{item.stepsToHatch + pointsText}</p>}
-        </span>
+            {haveEgg&&!item.isHatchable&&<p className="text-center fs-5">{item.stepsToHatch + pointsText}</p>}
+        </Col>
     )
 }
