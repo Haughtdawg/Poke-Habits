@@ -6,7 +6,10 @@ import { PointsAggregate } from './TodoBoardComponents/PointsAggregate.js';
 import { taskData } from '../Data/taskTableData.json';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import Alert from 'react-bootstrap/Alert'
+import Alert from 'react-bootstrap/Alert';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 /*
     Inputs: jsonPoints, setJsonPoints
@@ -129,11 +132,25 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs, setWindow}){
                 </div>
             </Alert>
 
-            <h2>TODO</h2>
-            <AddTaskContainer taskName = {newTaskName} setTaskName = {setNewTaskName} setShowModal = { setAddModal }/>
-            <TaskTable taskArray = {taskArray} setTaskArray = {setTaskArray} toggler = {toggleCheckBox} />
-            <PointsAggregate points = {jsonPoints} />
-            <Button onClick={submitTasks}>Submit Tasks!</Button>
+            <Container className="my-5 border-bottom">
+                <Row className="d-flex justify-content-center">
+                        <h1 className="text-center">To Do Items</h1>
+                </Row>
+                <Row className="d-flex justify-content-center">
+                    <Col>
+                        <h3 className="text-center">You currently have {jsonPoints} PokePoints!</h3>
+                    </Col>
+                </Row>
+            </Container>
+            <Container>
+                <AddTaskContainer taskName = {newTaskName} setTaskName = {setNewTaskName} setShowModal = { setAddModal } />
+                <TaskTable taskArray = {taskArray} setTaskArray = {setTaskArray} toggler = {toggleCheckBox} />
+                <Row className="d-flex my-3 justify-content-center">
+                    <Col xs={4} className="d-flex justify-content-center">
+                        <Button size="lg" onClick={submitTasks}>Submit Tasks!</Button>
+                    </Col>
+                </Row>
+            </Container>
         </div>
     )
 }
