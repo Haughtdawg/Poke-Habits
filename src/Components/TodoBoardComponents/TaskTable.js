@@ -67,7 +67,7 @@ export function TaskTable( { taskArray, setTaskArray, toggler }){
                 </Modal.Header> 
                 <Modal.Body> 
                     <p>
-                        {'Are you sure you want to delete task: ' + '"' + taskArray[taskIndex].title + '"?'}
+                        {'Are you sure you want to delete task: ' + '"' + (taskArray.length > 0 ? taskArray[taskIndex].title : '') + '"?'}
                     </p>
                 </Modal.Body>
                 <Modal.Footer>
