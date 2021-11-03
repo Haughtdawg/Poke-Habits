@@ -5,19 +5,21 @@ import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import Stack from 'react-bootstrap/Stack'
+import Stack from 'react-bootstrap/Stack';
+
 /*
     Inputs: taskName, setTaskName, setShowModal
     State variables: <none>
     Parents: TodoPage
     Children: <none>
 */
-export function AddTaskContainer({ taskName, setTaskName, setShowModal }){
+export function AddTaskContainer({ taskName, setTaskName, setShowModal, setTaskDifficulty}){
     /*
         taskName: String title for the new task (state variable for TodoPage)
         setTaskName: setState function to update the taskName
         setShowModal: setState function to bring up the add task confirmation modal
     */
+   
     return(
         <Row className="my-3">
             <Stack direction="horizontal" gap={3}>
@@ -27,6 +29,14 @@ export function AddTaskContainer({ taskName, setTaskName, setShowModal }){
                             onChange = {e => setTaskName(e.target.value)} 
                             value={taskName}>
                 </Form.Control>
+                <Form.Select aria-label="Default select example" onChange = {f => setTaskDifficulty(f)}>
+                    <option>Difficulty</option>
+                    <option value = "50" >Trivial</option>
+                    <option value = "100">Easy</option>
+                    <option value = "150">Medium</option>
+                    <option value = "200">Hard</option>
+                </Form.Select>
+
                 <Button onClick={()=> setShowModal(true)}>
                     <FontAwesomeIcon icon={ faPlus } />
                 </Button>

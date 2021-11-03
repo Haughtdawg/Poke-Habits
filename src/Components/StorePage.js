@@ -62,7 +62,7 @@ export function StorePage( {jsonPoints, setJsonPoints, setWindow, eggData, setEg
     /*
         Page for viewing the Store
     */
-    const eggPrice = 1000; // 1000 points for an egg
+    //const eggPrice = 1000; // 1000 points for an egg
 
     const [purchaseModal, setPurchaseModal] = useState(false); // Boolean to control the new pokemon modal
     
