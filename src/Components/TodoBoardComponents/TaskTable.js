@@ -13,7 +13,7 @@ import Stack from 'react-bootstrap/Stack';
     Children: TaskListItem
 */
 
-export function TaskTable( { taskArray, setTaskArray, toggler }){
+export function TaskTable( { taskArray, setTaskArray, toggler } ){
     /*
         taskArray: Array of task objects (state variable of ToDoPage)
         setTaskArray: setState function to update the taskArray

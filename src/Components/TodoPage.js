@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import '../index.css';
 import { AddTaskContainer } from './TodoBoardComponents/AddTaskContainer.js';
 import { TaskTable } from './TodoBoardComponents/TaskTable.js';
-import { PointsAggregate } from './TodoBoardComponents/PointsAggregate.js';
 import { taskData } from '../Data/taskTableData.json';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -24,9 +23,9 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs, setWindow}){
     const [newTaskName, setNewTaskName] = useState(''); // Title for the add task controlled text input
     // Remove nextId as a state when we create tasks from a database
     const [nextID, setNextID] = useState(4); // Id property for the next task to be created; increments upon creating a new task
-    const [newTaskPoints, setNewTaskPoints] = useState(5); // pointAmt property for the next task to be created
-    //const [jsonPoints, setJsonPoints] = useState(points); // Points displayed in the PointsAggregate component
+    //const [newTaskPoints, setNewTaskPoints] = useState(5); // pointAmt property for the next task to be created
     const [showEggAlert, setShowEggAlert] = useState(false);
+    const [taskDifficulty, setTaskDifficulty] = useState(0);//  pointAmt property for the next task to be created
 
     // Function to accept the Egg Alert and go to Collection Page
     const acceptEggAlert = ()=>{
@@ -88,9 +87,9 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs, setWindow}){
             5. Clear the task name variable 
         */
         setAddModal(false);
-        const newTaskItem = {iD: nextID , pointAmt: newTaskPoints , title: newTaskName, isComplete: false};
+        const newTaskItem = {iD: nextID , pointAmt: taskDifficulty , title: newTaskName, isComplete: false};
         setNextID(nextID+1);
-        setNewTaskPoints(newTaskPoints+1); // For now we are incrementing points
+        //setTaskDifficulty(taskDifficulty); // For now we are incrementing points
         const nextTaskArray = taskArray; // Need to create a copy of taskArray to change because we can't directly mutate state variables
         nextTaskArray.unshift(newTaskItem);
         setTaskArray(nextTaskArray);
@@ -143,7 +142,7 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs, setWindow}){
                 </Row>
             </Container>
             <Container>
-                <AddTaskContainer taskName = {newTaskName} setTaskName = {setNewTaskName} setShowModal = { setAddModal } />
+                <AddTaskContainer taskName = {newTaskName} setTaskName = {setNewTaskName} setShowModal = { setAddModal } setTaskDifficulty = { setTaskDifficulty }/>
                 <TaskTable taskArray = {taskArray} setTaskArray = {setTaskArray} toggler = {toggleCheckBox} />
                 <Row className="d-flex my-3 justify-content-center">
                     <Col xs={4} className="d-flex justify-content-center">
