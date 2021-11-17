@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import Nav from 'react-bootstrap/Nav';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -16,7 +16,23 @@ function PokeToDo(){
     const [jsonPoints, setJsonPoints] = useState(points);
     const [pokemonData, setPokemonData] = useState(pokemon);
     const [eggData, setEggsData] = useState(eggs); //Eggs, you meant Egg <-   --_____ --
+    const [data, setData] = useState(null);
 
+    useEffect(() => { 
+        callBackendAPI()
+      .then(res => setData(res.data))
+      .catch(err => console.log(err));
+    });
+
+    const callBackendAPI = async () => {
+        const response = await fetch('/test');
+        const body = await response.json();
+    
+        if(response.status !== 200){
+          throw Error(body.message)
+        }
+        return body;
+      };
 
     // imported from https://react-bootstrap.github.io/components/navs/
     return(
@@ -32,6 +48,7 @@ function PokeToDo(){
                     <Nav.Link eventKey="collection">Collection</Nav.Link>
                 </Nav.Item>
             </Nav>
+            <h1>{data}</h1>
             <h1>Poké-Habits</h1>
             {(window ==='home')&&<ToDoPage jsonPoints = {jsonPoints} setJsonPoints = {setJsonPoints} eggs = {eggData} setEggs= {setEggsData} setWindow={setWindow}/>}
             {(window ==='store')&&<StorePage jsonPoints = {jsonPoints} setJsonPoints = {setJsonPoints} setWindow = {setWindow} eggData = {eggData} setEggsData = {setEggsData}/>}  
