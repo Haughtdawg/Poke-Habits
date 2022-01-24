@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../index.css';
 import { AddTaskContainer } from './TodoBoardComponents/AddTaskContainer.js';
 import { TaskTable } from './TodoBoardComponents/TaskTable.js';
-import { taskData } from '../Data/taskTableData.json';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
@@ -18,7 +17,7 @@ import Col from 'react-bootstrap/Col';
 */
 
 export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs, setWindow}){
-    const [taskArray, setTaskArray] = useState(taskData); // Array of Todo Objects
+    const [taskArray, setTaskArray] = useState([]); // Array of Todo Objects
     const [addModal, setAddModal] = useState(false); // Boolean to control the add task modal
     const [newTaskName, setNewTaskName] = useState(''); // Title for the add task controlled text input
     // Remove nextId as a state when we create tasks from a database
@@ -26,6 +25,28 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs, setWindow}){
     //const [newTaskPoints, setNewTaskPoints] = useState(5); // pointAmt property for the next task to be created
     const [showEggAlert, setShowEggAlert] = useState(false);
     const [taskDifficulty, setTaskDifficulty] = useState(0);//  pointAmt property for the next task to be created
+
+    // Need to figure out how to set this config...
+    const mode = "dev";
+    const url = mode === "dev" ? "http://localhost:5000/todos" : "";
+
+    // Function to load the tasks from the server
+    const getTasks = async () =>{
+        const response = await fetch(url);
+        const todos = await response.json();
+        console.log(todos);
+        setTaskArray(todos);
+    };
+
+    useEffect(() => {
+        getTasks();
+    },[])
+
+    // Function to prevent the default behavior of the add task form component and open the add task dialog modal
+    const openAddTaskDialogModal = (e) => {
+        e.preventDefault();
+        setAddModal(true);
+    }
 
     // Function to accept the Egg Alert and go to Collection Page
     const acceptEggAlert = ()=>{
@@ -42,7 +63,7 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs, setWindow}){
             4. Set the appropriate object's isCompleted property to true and call the taskArray setState on the updated array
         */
         const checkedTaskArray = taskArray;
-        const eterator = e => e.iD === checkedID;
+        const eterator = e => e.id === checkedID;
         const checkedIndex = checkedTaskArray.findIndex(eterator);
         checkedTaskArray[checkedIndex].isCompleted = true;
         setTaskArray(checkedTaskArray);
@@ -66,7 +87,7 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs, setWindow}){
             if(isHatchable){
                 setShowEggAlert(true);
             }
-            return {iD: egg.iD, stepsToHatch: newPointsRemaining, name: egg.name, 
+            return {id: egg.id, stepsToHatch: newPointsRemaining, name: egg.name, 
                     isHatchable: isHatchable, pokemonImage: egg.pokemonImage}
         } )
         setEggs(newEggs);
@@ -77,7 +98,7 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs, setWindow}){
     }
 
     // Function to add a new task to our task list
-    const addTask = () => {
+    const addTask = async () => {
         /*
             User has confirmed they want to create this task
             1. Close modal
@@ -87,13 +108,24 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs, setWindow}){
             5. Clear the task name variable 
         */
         setAddModal(false);
-        const newTaskItem = {iD: nextID , pointAmt: taskDifficulty , title: newTaskName, isComplete: false};
+        const newTaskItem = {id: nextID , pointAmt: taskDifficulty , title: newTaskName, isComplete: false};
         setNextID(nextID+1);
         //setTaskDifficulty(taskDifficulty); // For now we are incrementing points
         const nextTaskArray = taskArray; // Need to create a copy of taskArray to change because we can't directly mutate state variables
         nextTaskArray.unshift(newTaskItem);
         setTaskArray(nextTaskArray);
-        setNewTaskName('');
+        setNewTaskName(''); 
+        try{
+            const body = {title: newTaskName, pointAmt: taskDifficulty};
+            const response = await fetch(url, {
+                method : "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(body)
+            });
+            console.log(response);
+        }catch(err){
+            console.error(err.message);
+        }
     }
 
     return(
@@ -142,7 +174,7 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs, setWindow}){
                 </Row>
             </Container>
             <Container>
-                <AddTaskContainer taskName = {newTaskName} setTaskName = {setNewTaskName} setShowModal = { setAddModal } setTaskDifficulty = { setTaskDifficulty }/>
+                <AddTaskContainer taskName = {newTaskName} setTaskName = {setNewTaskName} openAddTaskDialogModal = { openAddTaskDialogModal } setTaskDifficulty = { setTaskDifficulty }/>
                 <TaskTable taskArray = {taskArray} setTaskArray = {setTaskArray} toggler = {toggleCheckBox} />
                 <Row className="d-flex my-3 justify-content-center">
                     <Col xs={4} className="d-flex justify-content-center">

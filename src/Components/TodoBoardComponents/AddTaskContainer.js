@@ -13,7 +13,7 @@ import Stack from 'react-bootstrap/Stack';
     Parents: TodoPage
     Children: <none>
 */
-export function AddTaskContainer({ taskName, setTaskName, setShowModal, setTaskDifficulty}){
+export function AddTaskContainer({ taskName, setTaskName, openAddTaskDialogModal, setTaskDifficulty}){
     /*
         taskName: String title for the new task (state variable for TodoPage)
         setTaskName: setState function to update the taskName
@@ -28,7 +28,8 @@ export function AddTaskContainer({ taskName, setTaskName, setShowModal, setTaskD
                 <Form.Control type="text" 
                             placeholder="Input task name here" 
                             onChange = {e => setTaskName(e.target.value)} 
-                            value={taskName}>
+                            value={taskName}
+                            onSubmit={openAddTaskDialogModal}>
                 </Form.Control>
                 <Form.Select aria-label="Default select example" onChange = {f => setTaskDifficulty(f.target.value)}> {/*dropdown field for user defined task Difficulty*/}
                     <option>Difficulty</option>
@@ -38,7 +39,7 @@ export function AddTaskContainer({ taskName, setTaskName, setShowModal, setTaskD
                     <option value = {200}>Hard</option>
                 </Form.Select>
 
-                <Button onClick={()=> setShowModal(true)}> {/* Button to create new task */}
+                <Button onClick={openAddTaskDialogModal}> {/* Button to create new task */}
                     <FontAwesomeIcon icon={ faPlus } />
                 </Button>
                 <div className="vr" />

@@ -25,7 +25,7 @@ export function TaskTable( { taskArray, setTaskArray, toggler } ){
 
     // Function to open the modal and set the index of the selected task
     const openIt = (selectedKey) => {
-        const testKey = (e) => e.iD === selectedKey; // Testing function to be passed to findIndex
+        const testKey = (e) => e.id === selectedKey; // Testing function to be passed to findIndex
         setTaskIndex(taskArray.findIndex(testKey)); // Returns the index of the selected task and sets it to the taskIndex state
         setRemoveModal(true); // Open the modal
     }
@@ -51,8 +51,8 @@ export function TaskTable( { taskArray, setTaskArray, toggler } ){
     const tableInfo = taskArray.map((e) => <TaskListItem 
                                             pointAmt= {e.pointAmt} 
                                             title= {e.title} 
-                                            taskId= {e.iD} 
-                                            key= {e.iD.toString()} 
+                                            taskId= {e.id} 
+                                            key= {e.id.toString()} 
                                             deletionConfirm = {openIt}
                                             checkBoxState = {e.isCompleted}
                                             toggler = {toggler}

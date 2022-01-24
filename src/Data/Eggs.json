@@ -1,8 +1,8 @@
 {
     "eggs":
     [
-        {"iD": 0, "stepsToHatch": 1000001, "name": "Seadra", "isHatchable": false, "pokemonImage": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/117.png"},
-        {"iD": 1, "stepsToHatch": 1000001, "name": "Cyndaquil", "isHatchable": false, "pokemonImage": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/155.png"},
-        {"iD": 2, "stepsToHatch": 1000000, "name": "Emolga", "isHatchable": false, "pokemonImage": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/587.png"}
+        {"id": 0, "stepsToHatch": 1000001, "name": "Seadra", "isHatchable": false, "pokemonImage": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/117.png"},
+        {"id": 1, "stepsToHatch": 1000001, "name": "Cyndaquil", "isHatchable": false, "pokemonImage": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/155.png"},
+        {"id": 2, "stepsToHatch": 1000000, "name": "Emolga", "isHatchable": false, "pokemonImage": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/587.png"}
     ]
 }
