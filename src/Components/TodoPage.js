@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import '../index.css';
 import { AddTaskContainer } from './TodoBoardComponents/AddTaskContainer.js';
 import { TaskTable } from './TodoBoardComponents/TaskTable.js';
@@ -8,6 +8,7 @@ import Alert from 'react-bootstrap/Alert';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { MainURL } from '../index.js';
 
 /*
     Inputs: jsonPoints, setJsonPoints
@@ -26,13 +27,12 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs, setWindow}){
     const [showEggAlert, setShowEggAlert] = useState(false);
     const [taskDifficulty, setTaskDifficulty] = useState(0);//  pointAmt property for the next task to be created
 
-    // Need to figure out how to set this config...
-    const mode = "dev";
-    const url = mode === "dev" ? "http://localhost:5000/todos" : "";
+
+    const theURL = useContext(MainURL);
 
     // Function to load the tasks from the server
     const getTasks = async () =>{
-        const response = await fetch(url);
+        const response = await fetch(theURL + "todos");
         const todos = await response.json();
         console.log(todos);
         setTaskArray(todos);
@@ -117,7 +117,7 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs, setWindow}){
         setNewTaskName(''); 
         try{
             const body = {title: newTaskName, pointAmt: taskDifficulty};
-            const response = await fetch(url, {
+            const response = await fetch(theURL + "todos", {
                 method : "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(body)
@@ -175,7 +175,7 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs, setWindow}){
             </Container>
             <Container>
                 <AddTaskContainer taskName = {newTaskName} setTaskName = {setNewTaskName} openAddTaskDialogModal = { openAddTaskDialogModal } setTaskDifficulty = { setTaskDifficulty }/>
-                <TaskTable taskArray = {taskArray} setTaskArray = {setTaskArray} toggler = {toggleCheckBox} />
+                <TaskTable taskArray = {taskArray} setTaskArray = {setTaskArray} toggler = {toggleCheckBox}/>
                 <Row className="d-flex my-3 justify-content-center">
                     <Col xs={4} className="d-flex justify-content-center">
                         <Button size="lg" onClick={submitTasks}>Submit Tasks!</Button>

@@ -11,12 +11,20 @@ import { pokemon } from './Data/Pokemon.json';
 import { eggs } from './Data/Eggs.json';
 import './index.css';
 
+ // Need to figure out how to set this config...
+const mode = "dev";
+const url = mode === "dev" ? "http://localhost:5000/" : "";
+export const MainURL = React.createContext(url);
+
 function PokeToDo(){
     const [window, setWindow] = useState('home');
     const [jsonPoints, setJsonPoints] = useState(points);
     const [pokemonData, setPokemonData] = useState(pokemon);
     const [eggData, setEggsData] = useState(eggs); //Eggs, you meant Egg <-   --_____ --
 
+
+   
+    
 
     // imported from https://react-bootstrap.github.io/components/navs/
     return(
@@ -33,10 +41,12 @@ function PokeToDo(){
                 </Nav.Item>
             </Nav>
             <h1>Poké-Habits</h1>
-            {(window ==='home')&&<ToDoPage jsonPoints = {jsonPoints} setJsonPoints = {setJsonPoints} eggs = {eggData} setEggs= {setEggsData} setWindow={setWindow}/>}
-            {(window ==='store')&&<StorePage jsonPoints = {jsonPoints} setJsonPoints = {setJsonPoints} setWindow = {setWindow} eggData = {eggData} setEggsData = {setEggsData}/>}  
-            {(window === 'collection')&&<CollectionPage pokemonData = {pokemonData} setPokemonData={setPokemonData} eggData={eggData} setEggsData={setEggsData} startHatch={() => setWindow('hatch')}/>}   
-            {(window === 'hatch')&&<HatchPage setWindow= {setWindow} pokemonData = {pokemonData}/>}  
+            <MainURL.Provider value = {url}> 
+                {(window ==='home')&&<ToDoPage jsonPoints = {jsonPoints} setJsonPoints = {setJsonPoints} eggs = {eggData} setEggs= {setEggsData} setWindow={setWindow}/>}
+                {(window ==='store')&&<StorePage jsonPoints = {jsonPoints} setJsonPoints = {setJsonPoints} setWindow = {setWindow} eggData = {eggData} setEggsData = {setEggsData}/>}  
+                {(window === 'collection')&&<CollectionPage pokemonData = {pokemonData} setPokemonData={setPokemonData} eggData={eggData} setEggsData={setEggsData} startHatch={() => setWindow('hatch')}/>}   
+                {(window === 'hatch')&&<HatchPage setWindow= {setWindow} pokemonData = {pokemonData}/>}  
+            </MainURL.Provider>
         </div>
     )
 };
