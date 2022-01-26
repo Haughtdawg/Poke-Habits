@@ -37,9 +37,7 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs, setWindow}){
     };
 
     useEffect(() => {
-        console.log("Use Effect callback");
         getTasks();
-        console.log(" actually finishing the useEffect");
     },[])
 
     // Function to prevent the default behavior of the add task form component and open the add task dialog modal
@@ -108,7 +106,6 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs, setWindow}){
             5. Clear the task name variable 
         */
         setAddModal(false);
-       
         try{
             const body = {title: newTaskName, pointAmt: taskDifficulty};
             const response = await fetch(theURL + "todos", {
@@ -116,7 +113,6 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs, setWindow}){
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(body)
             });
-            console.log(response);
         }catch(err){
             console.error(err.message);
         }

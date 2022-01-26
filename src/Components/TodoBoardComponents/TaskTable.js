@@ -14,8 +14,6 @@ import { MainURL } from '../../index.js';
     Children: TaskListItem
 */
 
-
-
 export function TaskTable( { taskArray, setTaskArray, toggler } ){
     /*
         taskArray: Array of task objects (state variable of ToDoPage)
@@ -34,10 +32,6 @@ export function TaskTable( { taskArray, setTaskArray, toggler } ){
         const testKey = (e) => e.id === selectedKey; // Testing function to be passed to findIndex
         setTaskID(selectedKey); //Sets ID of tasks to delete 
         setTaskIndex(taskArray.findIndex(testKey)); // Returns the index of the selected task and sets it to the taskIndex state
-        console.log("the Task Array");
-        console.log(taskArray);
-        console.log("openIt TaskIndex");
-        console.log(taskIndex);
         setRemoveModal(true); // Open the modal
     }
 
@@ -55,19 +49,12 @@ export function TaskTable( { taskArray, setTaskArray, toggler } ){
         try {
             setRemoveModal(false);
             const newTaskArray = taskArray; // Need to copy data because we can't directly mutate state variables
-            console.log("newTask Array");
-            console.log(newTaskArray);
             newTaskArray.splice(taskIndex, 1); // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice
-            console.log("le splice");
-            console.log(newTaskArray);
+            setTaskIndex(0);
             setTaskArray(newTaskArray);
-            console.log("taskIndex");
-            console.log(taskIndex);
             const deleteTasks = await fetch(theURL + `todos/${taskID}`, {
                 method: "DELETE"
             });
-           console.log("deleteTasks");
-           console.log(deleteTasks);
         } catch (err) {
             console.eror(err.message);            
         }
