@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { TaskListItem } from './TaskListItem.js';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -6,12 +6,15 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Stack from 'react-bootstrap/Stack';
+import { MainURL } from '../../index.js';
 /*
     Inputs: taskArray, setTaskArray, toggler
     State variables: taskIndex, removeModal
     Parents: ToDoPage
     Children: TaskListItem
 */
+
+
 
 export function TaskTable( { taskArray, setTaskArray, toggler } ){
     /*
@@ -21,12 +24,20 @@ export function TaskTable( { taskArray, setTaskArray, toggler } ){
     */
 
     const [taskIndex, setTaskIndex] = useState(0); // Index of the task to be removed 
+    const [taskID, setTaskID] = useState(0); //ID of the tasks to be removed from backend
     const [removeModal, setRemoveModal] = useState(false); // Boolean to control the removal confirmation modal
+
+    const theURL = useContext(MainURL); //server URL dependent on dev mode
 
     // Function to open the modal and set the index of the selected task
     const openIt = (selectedKey) => {
         const testKey = (e) => e.id === selectedKey; // Testing function to be passed to findIndex
+        setTaskID(selectedKey); //Sets ID of tasks to delete 
         setTaskIndex(taskArray.findIndex(testKey)); // Returns the index of the selected task and sets it to the taskIndex state
+        console.log("the Task Array");
+        console.log(taskArray);
+        console.log("openIt TaskIndex");
+        console.log(taskIndex);
         setRemoveModal(true); // Open the modal
     }
 
@@ -34,18 +45,33 @@ export function TaskTable( { taskArray, setTaskArray, toggler } ){
     const closeIt = () => setRemoveModal(false); 
 
     // Function to delete a task once confirmed
-    const deleteTask = () => {
+    const deleteTask =  async () => {
         /*
             1. Close the modal
             2. Create copy of the task data
             3. Remove the task at taskIndex in the copied array
             4. Set the copied array as the new task data
         */
-        setRemoveModal(false);
-        const newTaskArray = taskArray; // Need to copy data because we can't directly mutate state variables
-        newTaskArray.splice(taskIndex, 1); // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice
-        setTaskArray(newTaskArray);
+        try {
+            setRemoveModal(false);
+            const newTaskArray = taskArray; // Need to copy data because we can't directly mutate state variables
+            console.log("newTask Array");
+            console.log(newTaskArray);
+            newTaskArray.splice(taskIndex, 1); // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice
+            console.log("le splice");
+            console.log(newTaskArray);
+            setTaskArray(newTaskArray);
+            console.log("taskIndex");
+            console.log(taskIndex);
+            const deleteTasks = await fetch(theURL + `todos/${taskID}`, {
+                method: "DELETE"
+            });
+           console.log("deleteTasks");
+           console.log(deleteTasks);
+        } catch (err) {
+            console.eror(err.message);            
         }
+    }
 
     // Map each element of taskArray to a unique TaskListItem component
     const tableInfo = taskArray.map((e) => <TaskListItem 

@@ -21,11 +21,9 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs, setWindow}){
     const [taskArray, setTaskArray] = useState([]); // Array of Todo Objects
     const [addModal, setAddModal] = useState(false); // Boolean to control the add task modal
     const [newTaskName, setNewTaskName] = useState(''); // Title for the add task controlled text input
-    // Remove nextId as a state when we create tasks from a database
-    const [nextID, setNextID] = useState(4); // Id property for the next task to be created; increments upon creating a new task
-    //const [newTaskPoints, setNewTaskPoints] = useState(5); // pointAmt property for the next task to be created
     const [showEggAlert, setShowEggAlert] = useState(false);
     const [taskDifficulty, setTaskDifficulty] = useState(0);//  pointAmt property for the next task to be created
+    
 
 
     const theURL = useContext(MainURL);
@@ -39,7 +37,9 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs, setWindow}){
     };
 
     useEffect(() => {
+        console.log("Use Effect callback");
         getTasks();
+        console.log(" actually finishing the useEffect");
     },[])
 
     // Function to prevent the default behavior of the add task form component and open the add task dialog modal
@@ -108,13 +108,7 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs, setWindow}){
             5. Clear the task name variable 
         */
         setAddModal(false);
-        const newTaskItem = {id: nextID , pointAmt: taskDifficulty , title: newTaskName, isComplete: false};
-        setNextID(nextID+1);
-        //setTaskDifficulty(taskDifficulty); // For now we are incrementing points
-        const nextTaskArray = taskArray; // Need to create a copy of taskArray to change because we can't directly mutate state variables
-        nextTaskArray.unshift(newTaskItem);
-        setTaskArray(nextTaskArray);
-        setNewTaskName(''); 
+       
         try{
             const body = {title: newTaskName, pointAmt: taskDifficulty};
             const response = await fetch(theURL + "todos", {
@@ -126,6 +120,8 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs, setWindow}){
         }catch(err){
             console.error(err.message);
         }
+        setNewTaskName(''); 
+        getTasks();
     }
 
     return(
