@@ -18,7 +18,7 @@ export function CollectionRow( { rowData, isEgg, startHatch, newPokeLessEgg}  ){
 */
     const collectionItems = rowData.map( (element, i) => {
         return(
-            <CollectionItem item={element} notEmpty = {element.iD !== undefined} isEgg={isEgg} startHatch={startHatch} key={i} newPokeLessEgg={newPokeLessEgg}/>
+            <CollectionItem item={element} notEmpty = {element.id !== undefined} isEgg={isEgg} startHatch={startHatch} key={i} newPokeLessEgg={newPokeLessEgg}/>
         )
     })
 

@@ -23,8 +23,6 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs, setWindow}){
     const [newTaskName, setNewTaskName] = useState(''); // Title for the add task controlled text input
     const [showEggAlert, setShowEggAlert] = useState(false);
     const [taskDifficulty, setTaskDifficulty] = useState(0);//  pointAmt property for the next task to be created
-    
-
 
     const theURL = useContext(MainURL);
 
@@ -74,19 +72,19 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs, setWindow}){
             Use the reduce method to sum the tasks that have the isCompleted property == true
             Then add that value to jsonPoints and use the setState function to update its value 
         */ 
-        const additionalPoints = taskArray.reduce( (prev,current) => prev + (current.isCompleted ? current.pointAmt : 0),0);
+        const additionalPoints = taskArray.reduce( (prev,current) => prev + (current.isCompleted ? current.pointamt : 0),0);
         setJsonPoints(jsonPoints + additionalPoints);
 
         // Reduce points remaining for each egg and reassess if it is hatchable
         
         const newEggs = eggs.map( egg => {
-            const newPointsRemaining = egg.stepsToHatch - additionalPoints;
+            const newPointsRemaining = egg.stepstohatch - additionalPoints;
             const isHatchable = newPointsRemaining <= 0;
             if(isHatchable){
                 setShowEggAlert(true);
             }
-            return {id: egg.id, stepsToHatch: newPointsRemaining, name: egg.name, 
-                    isHatchable: isHatchable, pokemonImage: egg.pokemonImage}
+            return {id: egg.id, stepstohatch: newPointsRemaining, name: egg.name, 
+                    ishatchable: isHatchable, image: egg.image}
         } )
         setEggs(newEggs);
 

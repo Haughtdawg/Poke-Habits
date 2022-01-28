@@ -18,8 +18,6 @@ export function HatchPage( {setWindow, pokemonData}){
     return(
         <div>
             <img src={image} alt={text}/>
-            
-            
             <p>
                 Congratulations, your egg has hatched into: {pokemonData[0].name}!
             </p>

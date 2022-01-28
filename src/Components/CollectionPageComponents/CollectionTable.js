@@ -1,52 +1,52 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import '../../index.css';
 import { CollectionRow } from './CollectionRow';
 import Container from 'react-bootstrap/Container';
+import { MainURL } from '../..';
 
 /*
-    Inputs: eggData, setEggsData, pokemonData, setPokemonData, startHatch
+    Inputs: eggsData, setEggsData, pokemonData, setPokemonData, startHatch
     State variables: <none>
     Parents: PokeTodo
     Children: CollectionRow
 */
 
-
-export function CollectionTable( {eggData, setEggsData, pokemonData, setPokemonData, startHatch} ){   
+export function CollectionTable( {eggsData, getEggsData, pokemonData, setPokemonData, startHatch} ){   
 /*
     Component to lay out pokemon in your collection
 
     pokemonData: Array of pokemon objects in the user's collection
 */
 
-    const newPokeLessEgg = (selectediD) =>{
+    const url = useContext(MainURL);
+    const newPokeLessEgg = async (selectedID) =>{
         /*
             Generate a new pokemon based on the egg to hatch
         */
-
-
-        // Testing condition to find the egg index of the hatching egg
-        const testId = (e) => e.iD === selectediD;
-        const eggIndex = eggData.findIndex(testId);
+        console.log("hello?");
+        const data = await fetch(url + 'hatch',
+        {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({id: selectedID})
+        }).then(response => response.json());
+        console.log("hatching...");
+        console.log(data);
 
         // Generate a new Pokemon object based on the data in the Egg
         const newPokemon = {
-            iD: eggData[eggIndex].iD,
-            name: eggData[eggIndex].name,
-            image: eggData[eggIndex].pokemonImage
-        }
+            id: data.id,
+            name: data.name,
+            image: data.image
+        };
 
         // Update pokemon Data with the new Pokemon object
         const newUnshiftedPokemonData = pokemonData;
         newUnshiftedPokemonData.unshift(newPokemon);
         setPokemonData(newUnshiftedPokemonData);
 
-        // Splice egg Data from the hatched egg out 
-        const newSplicedEggData = eggData;
-        newSplicedEggData.splice(eggIndex, 1)
-        setEggsData(newSplicedEggData);
+        getEggsData();
     }
-   
-
 
     const createRows = (collectionData, isEgg, startHatch) => {
         const numCols = 3; // 3 collection items per row, for now
@@ -67,7 +67,7 @@ export function CollectionTable( {eggData, setEggsData, pokemonData, setPokemonD
         return tableRows
     }
 
-    const eggRows = createRows(eggData, true, startHatch);
+    const eggRows = createRows(eggsData, true, startHatch);
     const pokemonRows = createRows(pokemonData, false);
 
     return(

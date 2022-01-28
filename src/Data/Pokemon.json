@@ -2,10 +2,10 @@
 {
     "pokemon":
     [
-        {"iD": 0, "name": "Haunter", "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/93.png"},
-        {"iD": 1, "name": "Gengar", "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png"},
-        {"iD": 2, "name": "Pikachu", "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"},
-        {"iD": 3, "name": "Ho-oh", "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/250.png"},
-        {"iD": 4, "name": "Sylveon", "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/700.png"}
+        {"id": 0, "name": "Haunter", "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/93.png"},
+        {"id": 1, "name": "Gengar", "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png"},
+        {"id": 2, "name": "Pikachu", "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"},
+        {"id": 3, "name": "Ho-oh", "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/250.png"},
+        {"id": 4, "name": "Sylveon", "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/700.png"}
     ]
 }

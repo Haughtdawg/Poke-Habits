@@ -62,7 +62,7 @@ export function TaskTable( { taskArray, setTaskArray, toggler } ){
 
     // Map each element of taskArray to a unique TaskListItem component
     const tableInfo = taskArray.map((e) => <TaskListItem 
-                                            pointAmt= {e.pointAmt} 
+                                            pointAmt= {e.pointamt} 
                                             title= {e.title} 
                                             taskId= {e.id} 
                                             key= {e.id.toString()} 
