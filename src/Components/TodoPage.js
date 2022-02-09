@@ -9,6 +9,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { MainURL } from '../index.js';
+import { faBorderStyle } from '@fortawesome/free-solid-svg-icons';
 
 /*
     Inputs: jsonPoints, setJsonPoints
@@ -22,7 +23,8 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs, setWindow}){
     const [addModal, setAddModal] = useState(false); // Boolean to control the add task modal
     const [newTaskName, setNewTaskName] = useState(''); // Title for the add task controlled text input
     const [showEggAlert, setShowEggAlert] = useState(false);
-    const [taskDifficulty, setTaskDifficulty] = useState(0);//  pointAmt property for the next task to be created
+    const [taskDifficulty, setTaskDifficulty] = useState(0); // pointAmt property for the next task to be created
+    const [completedTasksID, setCompletedTasksID] = useState([]); // Array of task IDs marked as complete
 
     const theURL = useContext(MainURL);
 
@@ -30,7 +32,6 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs, setWindow}){
     const getTasks = async () =>{
         const response = await fetch(theURL + "todos");
         const todos = await response.json();
-        console.log(todos);
         setTaskArray(todos);
     };
 
@@ -62,18 +63,32 @@ export function ToDoPage({jsonPoints, setJsonPoints, eggs, setEggs, setWindow}){
         const eterator = e => e.id === checkedID;
         const checkedIndex = checkedTaskArray.findIndex(eterator);
         checkedTaskArray[checkedIndex].isCompleted = true;
+        setCompletedTasksID([].append(checkedIndex));
         setTaskArray(checkedTaskArray);
     }
 
+
     // Function to submit completed tasks (add points to total and clear completed tasks)
-    const submitTasks= () =>{
+    const submitTasks= async (completedTasksID) =>{
         /* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
 
             Use the reduce method to sum the tasks that have the isCompleted property == true
             Then add that value to jsonPoints and use the setState function to update its value 
         */ 
-        const additionalPoints = taskArray.reduce( (prev,current) => prev + (current.isCompleted ? current.pointamt : 0),0);
-        setJsonPoints(jsonPoints + additionalPoints);
+        try {
+            const postResponse = await fetch( theURL + "submit", {
+                method: "POST",
+                header: {"content-Type": "application/json"},
+                body: JSON.stringify(completedTasksID)
+            });
+
+
+
+            const response = await fetch(theURL+ "store");
+        } catch (error) {
+            console.error(error.message);            
+        }
+       
 
         // Reduce points remaining for each egg and reassess if it is hatchable
         
